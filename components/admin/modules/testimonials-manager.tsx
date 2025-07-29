@@ -1,18 +1,20 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { Edit, Loader2, Plus, Save, Star, Trash2 } from "lucide-react"
+import { useEffect, useState } from "react"
+
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Star, Plus, Edit, Trash2, Save, Loader2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
 interface Testimonial {
   id: string
   name: string
   location: string
+  city: string
   comment: string
   rating: number
   avatar: string
@@ -30,6 +32,7 @@ export default function TestimonialsManager() {
   const emptyTestimonial: Omit<Testimonial, "id"> = {
     name: "",
     location: "",
+    city:"",
     comment: "",
     rating: 5,
     avatar: "",
@@ -41,7 +44,7 @@ export default function TestimonialsManager() {
   const [formData, setFormData] = useState(emptyTestimonial)
   const { toast } = useToast()
 
-  useEffect(() => {
+   useEffect(() => {
     fetchTestimonials()
   }, [])
 
@@ -51,6 +54,8 @@ export default function TestimonialsManager() {
       if (response.ok) {
         const data = await response.json()
         setTestimonials(data)
+      } else {
+        throw new Error("Failed to fetch testimonials")
       }
     } catch (error) {
       console.error("Error fetching testimonials:", error)
@@ -66,7 +71,9 @@ export default function TestimonialsManager() {
 
   const handleSave = async () => {
     try {
-      const url = editingTestimonial ? `/api/admin/testimonials/${editingTestimonial.id}` : "/api/admin/testimonials"
+      const url = editingTestimonial
+        ? `/api/admin/testimonials/${editingTestimonial}`
+        : "/api/admin/testimonials"
       const method = editingTestimonial ? "PUT" : "POST"
 
       const response = await fetch(url, {
@@ -74,17 +81,16 @@ export default function TestimonialsManager() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       })
+      console.log("Response:", formData)
+      if (!response.ok) throw new Error("Failed to save testimonial")
 
-      if (response.ok) {
-        fetchTestimonials()
-        resetForm()
-        toast({
-          title: "Success",
-          description: editingTestimonial ? "Testimonial updated!" : "Testimonial created!",
-        })
-      } else {
-        throw new Error("Failed to save testimonial")
-      }
+      await fetchTestimonials()
+      resetForm()
+
+      toast({
+        title: "Success",
+        description: editingTestimonial ? "Testimonial updated!" : "Testimonial created!",
+      })
     } catch (error) {
       toast({
         title: "Error",
@@ -94,7 +100,9 @@ export default function TestimonialsManager() {
     }
   }
 
+
   const handleDelete = async (id: string) => {
+    console.log(id)
     if (confirm("Are you sure you want to delete this testimonial?")) {
       try {
         const response = await fetch(`/api/admin/testimonials/${id}`, {
@@ -185,17 +193,26 @@ export default function TestimonialsManager() {
                   placeholder="Enter client name"
                 />
               </div>
-
+              <div className="space-y-2">
+                <Label htmlFor="city">City</Label>
+                <Input
+                  id="city"
+                  value={formData.city}
+                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  placeholder="City"
+                />
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
                 <Input
                   id="location"
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  placeholder="City, Country"
+                  placeholder="Country"
                 />
               </div>
             </div>
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -207,7 +224,6 @@ export default function TestimonialsManager() {
                   placeholder="Company name"
                 />
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="position">Position (Optional)</Label>
                 <Input
@@ -295,10 +311,10 @@ export default function TestimonialsManager() {
               </blockquote>
 
               <div className="flex justify-end space-x-2">
-                <Button size="sm" variant="outline" onClick={() => startEdit(testimonial)}>
+                {/* <Button size="sm" variant="outline" onClick={() => startEdit(testimonial)}>
                   <Edit className="w-3 h-3" />
-                </Button>
-                <Button size="sm" variant="destructive" onClick={() => handleDelete(testimonial.id)}>
+                </Button> */}
+                <Button size="sm" variant="destructive" onClick={() => handleDelete(testimonial._id)}>
                   <Trash2 className="w-3 h-3" />
                 </Button>
               </div>
@@ -309,7 +325,9 @@ export default function TestimonialsManager() {
 
       {testimonials.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500 dark:text-gray-400">No testimonials yet. Add your first testimonial!</p>
+          <p className="text-gray-500 dark:text-gray-400">
+            No testimonials yet. Add your first testimonial!
+          </p>
         </div>
       )}
     </div>
