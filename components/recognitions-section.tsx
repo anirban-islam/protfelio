@@ -1,26 +1,34 @@
+"use client"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useEffect, useState } from "react"
+
+interface Recognition {
+  id: string
+  title: string
+  description: string
+  icon: string
+  color: string
+}
 
 export function RecognitionsSection() {
-  const recognitions = [
-    {
-      title: "Pupil",
-      description: "Achieved the 'Pupil' badge on Codeforces",
-      icon: "🏆",
-      color: "bg-purple-100 text-purple-700",
-    },
-    {
-      title: "Excellence",
-      description: "Coding maestro",
-      icon: "⚡",
-      color: "bg-yellow-100 text-yellow-700",
-    },
-    {
-      title: "Pupil",
-      description: "GitHub Experts badge",
-      icon: "🏆",
-      color: "bg-blue-100 text-blue-700",
-    },
-  ]
+  const [recognitions, setRecognitions] = useState<Recognition[]>([])
+
+  useEffect(() => {
+    const fetchRecognitions = async () => {
+      try {
+        const res = await fetch("/api/admin/recognitions")
+        if (res.ok) {
+          const data = await res.json()
+          setRecognitions(data)
+        }
+      } catch (error) {
+        console.error("Failed to load recognitions:", error)
+      }
+    }
+
+    fetchRecognitions()
+  }, [])
 
   return (
     <Card>
@@ -32,7 +40,7 @@ export function RecognitionsSection() {
       </CardHeader>
       <CardContent className="space-y-3">
         {recognitions.map((recognition, index) => (
-          <div key={index} className="flex items-center space-x-3">
+          <div key={recognition.id || index} className="flex items-center space-x-3">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${recognition.color}`}>
               <span className="text-lg">{recognition.icon}</span>
             </div>

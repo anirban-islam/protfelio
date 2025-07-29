@@ -3,11 +3,15 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 export function ServicesSection() {
   const services = [
-    "Front End Development",
-    "Web App Development",
-    "Software Development",
-    "Mobile App Development",
-    "User Interface Design",
+    "Full-Stack Development Services",
+    "Backend API & Database Architecture",
+    "SaaS Product Development",
+    "E-Commerce Platform Development",
+    "API Integration & Development",
+    "Mobile-First Web Design",
+    "Cross-Platform App Development",
+    "Modern UI/UX Design Services"
+
   ]
 
   return (

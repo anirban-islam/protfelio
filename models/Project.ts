@@ -1,40 +1,28 @@
-import mongoose from "mongoose"
+import mongoose, { Document, Schema } from "mongoose"
 
-const ProjectSchema = new mongoose.Schema(
+export interface IProject extends Document {
+  title: string
+  description: string
+  image: string
+  techStack: string[]
+  url: string
+  githubUrl: string
+  featured: boolean
+  status: "completed" | "in-progress" | "planned"
+}
+
+const ProjectSchema: Schema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    techStack: [
-      {
-        type: String,
-      },
-    ],
-    coverImage: {
-      type: String, // Cloudinary URL
-      required: false,
-    },
-    liveLink: {
-      type: String,
-      required: false,
-    },
-    featured: {
-      type: Boolean,
-      default: false,
-    },
-    order: {
-      type: Number,
-      default: 0,
-    },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    image: { type: String, required: true },
+    techStack: { type: [String], required: true },
+    url: { type: String },
+    githubUrl: { type: String },
+    featured: { type: Boolean, default: false },
+    status: { type: String, enum: ["completed", "in-progress", "planned"], required: true },
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true }
 )
 
-export default mongoose.models.Project || mongoose.model("Project", ProjectSchema)
+export default mongoose.models.Project || mongoose.model<IProject>("Project", ProjectSchema)

@@ -78,8 +78,8 @@ export function AboutSection() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Anirban Islam Emon</h3>
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">Full-Stack Web Developer | Next.js Specialist</p>
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-2"></h3>
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-2"></p>
 
           <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">{aboutData.bio}</p>
 

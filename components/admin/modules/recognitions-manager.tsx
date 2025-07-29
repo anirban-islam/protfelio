@@ -1,13 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Edit, Trash2, Save, Loader2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { Edit, Loader2, Plus, Save, Trash2 } from "lucide-react"
+import { useEffect, useState } from "react"
+
 
 interface Recognition {
   id: string

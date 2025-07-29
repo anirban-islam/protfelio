@@ -47,7 +47,7 @@ export function Navigation() {
           {/* Logo - Left */}
           <Link
             href="/"
-            className="text-2xl font-bold text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            className="text-xl font-semibold font-mono text-purple-700 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
           >
             Anirban
           </Link>
