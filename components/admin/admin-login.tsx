@@ -114,7 +114,7 @@ export function AdminLogin() {
               )}
             </Button>
           </form>
-
+{/* 
           <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">Demo Credentials:</h4>
             <p className="text-sm text-blue-700 dark:text-blue-300">
@@ -123,7 +123,7 @@ export function AdminLogin() {
             <p className="text-sm text-blue-700 dark:text-blue-300">
               <strong>Password:</strong> admin123
             </p>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>
