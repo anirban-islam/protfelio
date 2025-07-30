@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Star } from "lucide-react"
 import Image from "next/image"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 interface Testimonial {
@@ -19,13 +20,15 @@ export function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([])
   const [error, setError] = useState<string | null>(null)
 
+  const router = useRouter()
+  const pathname = usePathname()
+  const isTestimonialsPage = pathname === "/testimonials"
+
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
         const res = await fetch("/api/admin/testimonials")
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`)
-        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const data = await res.json()
         setTestimonials(data)
       } catch (err) {
@@ -37,6 +40,8 @@ export function TestimonialsSection() {
     fetchTestimonials()
   }, [])
 
+  const displayedTestimonials = isTestimonialsPage ? testimonials : testimonials.slice(0, 2)
+
   return (
     <Card>
       <CardHeader>
@@ -45,13 +50,11 @@ export function TestimonialsSection() {
           <span>Testimonials</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        {error && (
-          <p className="text-sm text-red-500">
-            {error}
-          </p>
-        )}
-        {testimonials.map((testimonial, index) => (
+
+      <CardContent className="space-y-6">
+        {error && <p className="text-sm text-red-500">{error}</p>}
+
+        {displayedTestimonials.map((testimonial, index) => (
           <div key={testimonial._id || index} className="space-y-3">
             <div className="flex items-center space-x-3">
               <Image
@@ -62,7 +65,7 @@ export function TestimonialsSection() {
                 className="rounded-full"
               />
               <div className="flex-1">
-                <h4 className="font-medium text-sm text-gray-900">{testimonial.name}</h4>
+                <h4 className="font-medium text-sm text-gray-900 dark:text-gray-200">{testimonial.name}</h4>
                 <p className="text-xs text-gray-500">{testimonial.city}</p>
               </div>
               <span className="text-xs text-gray-400">
@@ -80,9 +83,23 @@ export function TestimonialsSection() {
               ))}
             </div>
 
-            <p className="text-sm text-gray-700 leading-relaxed">"{testimonial.comment} "</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+              "{testimonial.comment}"
+            </p>
           </div>
         ))}
+
+        {/* View More button - only show if not already on the testimonials page */}
+        {!isTestimonialsPage && testimonials.length > 2 && (
+            <div className="text-center mt-6">
+            <button
+              onClick={() => router.push("/testimonials")}
+              className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-400"
+            >
+              View More →
+            </button>
+          </div>
+        )}
       </CardContent>
     </Card>
   )

@@ -1,14 +1,15 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import dbConnect from "@/lib/mongodb"
 import SocialLink from "@/models/SocialLink"
+import { getServerSession } from "next-auth"
+import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
     if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      const socialLinks = await SocialLink.find().sort({ createdAt: -1 })
+    return NextResponse.json(socialLinks)
     }
 
     await dbConnect()

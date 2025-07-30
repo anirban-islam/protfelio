@@ -13,6 +13,7 @@ interface Recognition {
 
 export function RecognitionsSection() {
   const [recognitions, setRecognitions] = useState<Recognition[]>([])
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     const fetchRecognitions = async () => {
@@ -30,6 +31,8 @@ export function RecognitionsSection() {
     fetchRecognitions()
   }, [])
 
+  const visibleRecognitions = showAll ? recognitions : recognitions.slice(0, 2)
+
   return (
     <Card>
       <CardHeader>
@@ -39,7 +42,7 @@ export function RecognitionsSection() {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        {recognitions.map((recognition, index) => (
+        {visibleRecognitions.map((recognition, index) => (
           <div key={recognition.id || index} className="flex items-center space-x-3">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${recognition.color}`}>
               <span className="text-lg">{recognition.icon}</span>
@@ -50,6 +53,24 @@ export function RecognitionsSection() {
             </div>
           </div>
         ))}
+
+        {recognitions.length > 2 && !showAll && (
+          <button
+            onClick={() => setShowAll(true)}
+            className="text-blue-600 hover:underline text-sm"
+          >
+            See More
+          </button>
+        )}
+
+        {recognitions.length > 2 && showAll && recognitions.length > 2 && (
+          <button
+            onClick={() => setShowAll(false)}
+            className="text-blue-600 hover:underline text-sm"
+          >
+            See Less
+          </button>
+        )}
       </CardContent>
     </Card>
   )

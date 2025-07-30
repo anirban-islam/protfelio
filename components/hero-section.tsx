@@ -43,7 +43,7 @@ export function HeroSection() {
     <Card className="p-6">
       <CardContent className="p-0">
         <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-1">
             <div className="relative">
               <Image
                 src={hero?.profileImage || "/placeholder.svg"}
@@ -94,7 +94,7 @@ export function HeroSection() {
             <p className="text-gray-600 dark:text-gray-300">{hero?.title}</p>
           </div>
 
-          <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
+          <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300">
             <div className="flex items-center space-x-1">
               <span className="text-blue-600">📍</span>
               <span>{hero?.location}</span>
@@ -105,7 +105,7 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
+          <div className="flex items-center space-x-1 justify-between text-sm text-gray-600 dark:text-gray-300">
             <div className="flex items-center space-x-1">
               <span className="text-purple-600">👨‍💻</span>
               <span>{hero?.profession}</span>

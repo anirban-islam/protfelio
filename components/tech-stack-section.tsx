@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 interface TechItem {
   _id: string
@@ -17,6 +17,7 @@ interface TechItem {
 export function TechStackSection() {
   const [techStack, setTechStack] = useState<TechItem[]>([])
   const [loading, setLoading] = useState(true)
+  const [showAll, setShowAll] = useState(false)
 
   useEffect(() => {
     fetchTechStack()
@@ -30,7 +31,6 @@ export function TechStackSection() {
         setTechStack(data)
       } else {
         console.error("Failed to fetch tech stack")
-        // Fallback to default tech stack
         setTechStack([
           {
             _id: "1",
@@ -56,7 +56,6 @@ export function TechStackSection() {
       }
     } catch (error) {
       console.error("Error fetching tech stack:", error)
-      // Use fallback data
       setTechStack([])
     } finally {
       setLoading(false)
@@ -92,6 +91,8 @@ export function TechStackSection() {
     )
   }
 
+  const displayedTechStack = showAll ? techStack : techStack.slice(0, 8)
+
   return (
     <Card>
       <CardHeader>
@@ -102,7 +103,7 @@ export function TechStackSection() {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-2">
-          {techStack.map((tech) => (
+          {displayedTechStack.map((tech) => (
             <div
               key={tech._id}
               className="flex items-center space-x-2 p-2 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors group"
@@ -135,6 +136,15 @@ export function TechStackSection() {
             </div>
           ))}
         </div>
+
+        {techStack.length > 8 && (
+          <button
+            className="mt-4 text-sm text-blue-600 hover:underline"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "See Less" : "See More"}
+          </button>
+        )}
 
         {techStack.length === 0 && (
           <div className="text-center py-8 text-gray-500 dark:text-gray-400">
