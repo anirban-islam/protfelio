@@ -1,5 +1,5 @@
 import { authOptions } from "@/lib/auth"
-import { connectDB } from "@/lib/mongodb"
+import connectDB from "@/lib/mongodb"
 import Hero from "@/models/Hero"
 import { getServerSession } from "next-auth/next"
 import { type NextRequest, NextResponse } from "next/server"
@@ -7,10 +7,11 @@ import { type NextRequest, NextResponse } from "next/server"
 export async function GET() {
   try {
     await connectDB()
+
     let hero = await Hero.findOne()
 
     if (!hero) {
-      // Default fallback data if DB is empty
+      // Seed with default data if empty
       hero = await Hero.create({
         name: "Anirban Islam Emon",
         title: "I'm a Developer",
@@ -21,6 +22,7 @@ export async function GET() {
         isAvailable: true,
         profileImage: "",
         resumeUrl: "",
+        bio: "Hi! I'm Anirban Islam Emon, a dedicated Computer Science & Engineering (CSE) student and a passionate Full-Stack Developer.",
       })
     }
 
@@ -32,13 +34,13 @@ export async function GET() {
 }
 
 export async function PUT(request: NextRequest) {
-  const session = await getServerSession(authOptions)
-
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-  }
-
   try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
     const data = await request.json()
     await connectDB()
 

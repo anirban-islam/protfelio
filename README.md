@@ -1,5 +1,4 @@
 # 🚀 Anirban Islam Emon - Portfolio Website
-
 A modern, full-stack portfolio website built with Next.js, featuring a dynamic admin dashboard for content management.
 
 ## ✨ Features
@@ -33,42 +32,32 @@ A modern, full-stack portfolio website built with Next.js, featuring a dynamic a
 ### Installation
 
 1. **Clone the repository**
-   \`\`\`bash
-   git clone <your-repo-url>
-   cd anirban-portfolio
-   \`\`\`
+
 
 2. **Install dependencies**
-   \`\`\`bash
-   npm install
-   \`\`\`
+
 
 3. **Set up environment variables**
-   \`\`\`bash
-   cp .env.local.example .env.local
-   # Edit .env.local with your values
-   \`\`\`
+ 
 
 4. **Run the development server**
-   \`\`\`bash
-   npm run dev
-   \`\`\`
+  
 
 5. **Open your browser**
-   Visit [http://localhost:3000](http://localhost:3000)
+
 
 ## 🧪 Testing
 
-\`\`\`bash
+
 # Run all tests
-npm test
+
 
 # Run E2E tests
-npm run test:e2e
+
 
 # Run tests with UI
-npm run test:ui
-\`\`\`
+
+
 
 ## 📁 Project Structure
 
@@ -87,36 +76,13 @@ npm run test:ui
 
 ## 🔐 Admin Access
 
-- **URL**: `/admin/login`
-- **Email**: `admin@anirban.dev`
-- **Password**: `admin123`
-
-## 📝 Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm test` - Run unit tests
-- `npm run test:e2e` - Run E2E tests
+## 📝 Available Script
 
 ## 🚀 Deployment
 
-The project is configured for easy deployment on Vercel:
-
-1. Push to GitHub
-2. Connect to Vercel
-3. Set environment variables
-4. Deploy!
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
 
 ## 📄 License
 
-This project is licensed under the MIT License.
