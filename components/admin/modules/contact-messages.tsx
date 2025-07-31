@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Trash2, Download, Search, Mail, Phone, Loader2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { Download, Loader2, Mail, Phone, Search, Trash2 } from "lucide-react"
+import { useEffect, useState } from "react"
 
 interface ContactMessage {
   id: string
@@ -175,7 +175,7 @@ export default function ContactMessages() {
                 onClick={() => {
                   setSelectedMessage(message)
                   if (!message.isRead) {
-                    markAsRead(message.id)
+                    markAsRead(message._id)
                   }
                 }}
               >
@@ -210,7 +210,7 @@ export default function ContactMessages() {
             <CardHeader>
               <div className="flex justify-between items-start">
                 <CardTitle>Message Details</CardTitle>
-                <Button size="sm" variant="destructive" onClick={() => deleteMessage(selectedMessage.id)}>
+                <Button size="sm" variant="destructive" onClick={() => deleteMessage(selectedMessage._id)}>
                   <Trash2 className="w-3 h-3" />
                 </Button>
               </div>

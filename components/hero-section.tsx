@@ -32,7 +32,7 @@ export function HeroSection() {
       if (response.ok) {
         const data = await response.json()
         setHero(data)
-        // console.log("✅ Hero data:", data)
+        console.log("✅ Hero data:", data)
       }
     } catch (error) {
       console.error("❌ Failed to fetch hero data:", error)
@@ -42,8 +42,8 @@ export function HeroSection() {
   return (
     <Card className="p-6">
       <CardContent className="p-0">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-1">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-center space-x-1">
             <div className="relative">
               <Image
                 src={hero?.profileImage || "/placeholder.svg"}
@@ -80,7 +80,7 @@ export function HeroSection() {
               variant="outline"
               size="sm"
               disabled
-              className="flex items-center space-x-2 bg-transparent opacity-50"
+              className="flex items-center mt-4 space-x-2 bg-transparent opacity-50"
             >
               <span>Resume</span>
               <Download className="w-4 h-4" />

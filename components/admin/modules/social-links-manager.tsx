@@ -1,15 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
-import { Facebook, Twitter, Linkedin, Mail, Github, Instagram, Youtube, Globe } from "lucide-react"
-import { Plus, Edit, Trash2, Save, Loader2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { Edit, Facebook, Github, Globe, Instagram, Linkedin, Loader2, Mail, Plus, Save, Trash2, Twitter, Youtube } from "lucide-react"
+import { useEffect, useState } from "react"
 
 interface SocialLink {
   id: string
@@ -71,7 +70,7 @@ export default function SocialLinksManager() {
 
   const handleSave = async () => {
     try {
-      const url = editingLink ? `/api/admin/social-links/${editingLink.id}` : "/api/admin/social-links"
+      const url = editingLink ? `/api/admin/social-links/${editingLink._id}` : "/api/admin/social-links"
       const method = editingLink ? "PUT" : "POST"
 
       const response = await fetch(url, {
@@ -299,7 +298,7 @@ export default function SocialLinksManager() {
                     <Button size="sm" variant="outline" onClick={() => startEdit(link)}>
                       <Edit className="w-3 h-3" />
                     </Button>
-                    <Button size="sm" variant="destructive" onClick={() => handleDelete(link.id)}>
+                    <Button size="sm" variant="destructive" onClick={() => handleDelete(link._id)}>
                       <Trash2 className="w-3 h-3" />
                     </Button>
                   </div>

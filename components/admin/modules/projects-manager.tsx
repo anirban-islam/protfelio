@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
-import { ExternalLink, Github, Loader2, Plus, Save, Trash2, X } from "lucide-react"
+import { Edit, ExternalLink, Github, Loader2, Plus, Save, Trash2, X } from "lucide-react"
 import { useEffect, useState } from "react"
 
 interface Project {
@@ -54,7 +54,7 @@ export default function ProjectsManager() {
       if (response.ok) {
         const data = await response.json()
         setProjects(data)
-        console.log("Fetched projects:", data)
+        // console.log("Fetched projects:", data)
       }
     } catch (error) {
       console.error("Error fetching projects:", error)
@@ -70,7 +70,7 @@ export default function ProjectsManager() {
 
   const handleSave = async () => {
     try {
-      const url = editingProject ? `/api/admin/projects/${editingProject.id}` : "/api/admin/projects"
+      const url = editingProject ? `/api/admin/projects/${editingProject._id}` : "/api/admin/projects"
       const method = editingProject ? "PUT" : "POST"
 
       const response = await fetch(url, {
@@ -352,9 +352,9 @@ export default function ProjectsManager() {
                 </div>
 
                 <div className="flex space-x-2">
-                  {/* <Button size="sm" variant="outline" onClick={() => startEdit(project)}>
+                  <Button size="sm" variant="outline" onClick={() => startEdit(project)}>
                     <Edit className="w-3 h-3" />
-                  </Button> */}
+                  </Button>
                   <Button size="sm" variant="destructive" onClick={() => handleDelete(project._id)}>
                     <Trash2 className="w-3 h-3" />
                   </Button>

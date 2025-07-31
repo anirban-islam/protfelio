@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Download, Search, Trash2, Loader2, Mail } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
+import { Download, Loader2, Mail, Search, Trash2 } from "lucide-react"
+import { useEffect, useState } from "react"
 
 interface Subscriber {
   id: string
@@ -160,7 +160,7 @@ export default function NewsletterSubscribers() {
                   <Button size="sm" variant="outline" onClick={() => window.open(`mailto:${subscriber.email}`)}>
                     <Mail className="w-3 h-3" />
                   </Button>
-                  <Button size="sm" variant="destructive" onClick={() => deleteSubscriber(subscriber.id)}>
+                  <Button size="sm" variant="destructive" onClick={() => deleteSubscriber(subscriber._id)}>
                     <Trash2 className="w-3 h-3" />
                   </Button>
                 </div>
