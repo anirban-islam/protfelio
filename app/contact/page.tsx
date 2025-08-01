@@ -1,6 +1,6 @@
-import { PublicLayout } from "@/components/layout/public-layout"
-import { MiddleContentWrapper } from "@/components/layout/middle-content-wrapper"
 import { ContactFormSection } from "@/components/contact-form-section"
+import { MiddleContentWrapper } from "@/components/layout/middle-content-wrapper"
+import { PublicLayout } from "@/components/layout/public-layout"
 
 export default function ContactPage() {
   return (
@@ -46,6 +46,21 @@ export default function ContactPage() {
               </span>
               <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm">
                 UI/UX Design
+              </span>
+               <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm">
+               API Integration
+              </span>
+               <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm">
+                Security Best Practices
+              </span>
+              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm">
+                 SEO & Performance Tuning
+              </span>
+              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm">
+                  CMS & Admin Dashboards
+              </span>
+              <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm">
+                 esting & Debugging
               </span>
             </div>
           </div>
